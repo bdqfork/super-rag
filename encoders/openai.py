@@ -24,11 +24,12 @@ class OpenAIEncoder(BaseEncoder):
         if name is None:
             name = config("OPENAI_MODEL_NAME", "text-embedding-3-small")
         super().__init__(name=name, score_threshold=score_threshold)
+        base_url = config("OPENAI_BASE_URL", None)
         api_key = openai_api_key or config("OPENAI_API_KEY")
         if api_key is None:
             raise ValueError("OpenAI API key cannot be 'None'.")
         try:
-            self.client = openai.Client(api_key=api_key)
+            self.client = openai.Client(base_url=base_url, api_key=api_key)
         except Exception as e:
             raise ValueError(
                 f"OpenAI API client failed to initialize. Error: {e}"

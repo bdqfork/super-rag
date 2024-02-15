@@ -8,7 +8,9 @@ WORKDIR /usr/src/app
 COPY . /usr/src/app
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+#RUN pip install --no-cache-dir -r requirements.txt
+
+RUN pip install poetry && poetry install
 
 # Make port 80 available to the world outside this container
 ENV PORT="8080"
